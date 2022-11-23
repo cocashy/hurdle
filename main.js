@@ -184,9 +184,7 @@ const loop = () => {
   window.requestAnimationFrame(loop);
 }
 
-window.onload = loop;
-
-canvas.onclick = (e) => {
+const onInput = (e) => {
   // ゲームオーバーの後、入力を受け付けない
   if (game.isOver) return;
   // ゲームが始まる前
@@ -199,4 +197,12 @@ canvas.onclick = (e) => {
   if (player.jumpLives <= 0) return;
   player.jumpLives--;
   player.vy = -INITIAL_JUMP_V;
+}
+
+window.onload = loop;
+
+if ("ontouchstart" in window) {
+  window.ontouchend = onInput;
+} else {
+  window.onclick = onInput;
 }
